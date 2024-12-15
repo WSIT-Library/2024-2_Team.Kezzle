@@ -1,0 +1,30 @@
+service: kezzle-vector-save
+frameworkVersion: "3"
+
+plugins:
+    - serverless-python-requirements
+    - serverless-dotenv-plugin
+
+custom:
+    pythonRequirements:
+        dockerizePip: non-linux
+
+provider:
+    name: aws
+    runtime: python3.11
+    stage: dev
+    region: ap-northeast-2
+
+package:
+    exclude:
+        - node_modules/**
+        - venv/**
+        - .env
+        - package-lock.json
+        - package.json
+
+functions:
+    mongo:
+        handler: app/main.lambda_handler
+        timeout: 10
+        memorySize: 1536

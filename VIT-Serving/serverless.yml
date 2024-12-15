@@ -1,0 +1,21 @@
+service: kezzle-vit-serving
+frameworkVersion: "3"
+
+provider:
+    name: aws
+    runtime: python3.11
+    stage: dev
+    region: ap-northeast-2
+    ecr:
+        images:
+            vitimage:
+                path: ./
+                platform: linux/amd64
+
+functions:
+    vectorize:
+        architecture: x86_64
+        image:
+            name: vitimage
+        timeout: 180
+        memorySize: 1536
